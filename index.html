@@ -261,7 +261,7 @@ a{color:inherit;text-decoration:none}
 /* ── Unified Color Section ──────────────────────────────── */
 
 /* Color group card (ramp groups: base, primary, etc.) */
-.cg-card{background:#fff;border:1px solid rgba(0,0,0,0.05);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.05),0 2px 8px rgba(0,0,0,0.06)}
+.cg-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:16px}
 .cg-card-hd{display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px 12px}
 .cg-card-title-wrap{display:flex;flex-direction:column;gap:3px}
 .cg-card-name{font-size:15px;font-weight:700;color:#111827}
@@ -287,7 +287,7 @@ a{color:inherit;text-decoration:none}
 .cg-text-tkn{font-family:'JetBrains Mono',monospace;font-size:9.5px;margin-top:5px;line-height:1.4;opacity:.8;word-break:break-all}
 
 /* Main group card (no ramp) */
-.mg-card{background:#fff;border:1px solid rgba(0,0,0,0.05);border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.05),0 2px 8px rgba(0,0,0,0.06)}
+.mg-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:16px}
 .mg-card-name{font-size:15px;font-weight:700;color:#111827}
 .mg-body{padding:0 20px 20px}
 .mg-section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;padding-top:14px;margin-bottom:8px}
@@ -1093,6 +1093,7 @@ function buildNav() {
 function toggleWbSection(section) {
   S.wbNavCollapsed[section] = !S.wbNavCollapsed[section];
   buildNav();
+  if (S.mode === 'foundation') requestAnimationFrame(_updateScrollSpy);
 }
 
 // Foundation scroll to section
@@ -1106,24 +1107,39 @@ function scrollToSection(id) {
 
 // Scroll spy — updates nav highlight as user scrolls the foundation view
 function _updateScrollSpy() {
+  if (S.mode !== 'foundation') return;
   const container = document.getElementById('foundation-view');
   if (!container) return;
-  const threshold = container.getBoundingClientRect().top + container.clientHeight * 0.25;
-  // Collect all nav-linked elements in DOM order
-  const navBtns = [...document.querySelectorAll('#sidebar-nav [data-navId]')];
-  let activeId = null;
+  const navBtns = [...document.querySelectorAll('#sidebar-nav [data-nav-id]')];
+  if (!navBtns.length) return;
+
+  // If scrolled to bottom, activate last section
+  const atBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 8;
+  if (atBottom) {
+    const lastId = navBtns[navBtns.length - 1].dataset.navId;
+    navBtns.forEach(b => b.classList.toggle('active', b.dataset.navId === lastId));
+    return;
+  }
+
+  const containerTop = container.getBoundingClientRect().top;
+  const threshold = containerTop + container.clientHeight * 0.3;
+  let activeId = navBtns[0].dataset.navId;
   for (const btn of navBtns) {
     const el = document.getElementById(btn.dataset.navId);
     if (!el) continue;
     if (el.getBoundingClientRect().top <= threshold) activeId = btn.dataset.navId;
   }
-  if (activeId) {
-    navBtns.forEach(b => b.classList.toggle('active', b.dataset.navId === activeId));
-  }
+  navBtns.forEach(b => b.classList.toggle('active', b.dataset.navId === activeId));
 }
+let _scrollSpyBound = false;
 function _initScrollSpy() {
   const container = document.getElementById('foundation-view');
-  if (container) container.addEventListener('scroll', _updateScrollSpy, { passive:true });
+  if (container && !_scrollSpyBound) {
+    container.addEventListener('scroll', _updateScrollSpy, { passive:true });
+    _scrollSpyBound = true;
+  }
+  // Delay initial highlight until after app is visible and layout is computed
+  requestAnimationFrame(() => requestAnimationFrame(_updateScrollSpy));
 }
 
 function setMode(mode) {
