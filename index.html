@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link id="kendo-theme" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@progress/kendo-theme-default@latest/dist/default-main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 /* ── Reset ───────────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -25,7 +26,7 @@ a{color:inherit;text-decoration:none}
 .sb-logo{display:flex;align-items:center;gap:10px;padding:18px 16px 14px;border-bottom:1px solid #e5e7eb;flex-shrink:0}
 .sb-logo-mark{width:28px;height:28px;border-radius:6px;background:#111827;color:#fff;font-size:10.5px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sb-logo-name{font-size:13px;font-weight:600;color:#111827;line-height:1.2}
-.sb-logo-meta{font-size:10.5px;color:#9ca3af;margin-top:1px}
+.sb-logo-meta{font-size:10.5px;color:#6b7280;margin-top:1px}
 .sb-mode{display:flex;gap:2px;padding:8px 10px;border-bottom:1px solid #e5e7eb;flex-shrink:0}
 .sb-mode-btn{flex:1;padding:5px 8px;font-size:12px;font-weight:500;color:#6b7280;border-radius:5px;transition:background .1s,color .1s}
 .sb-mode-btn:hover{background:#f3f4f6;color:#374151}
@@ -33,13 +34,13 @@ a{color:inherit;text-decoration:none}
 #sidebar-nav{flex:1;overflow-y:auto;padding:8px 0 16px}
 #sidebar-nav::-webkit-scrollbar{width:4px}
 #sidebar-nav::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:2px}
-.nav-section{padding:14px 16px 4px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af}
+.nav-section{padding:14px 16px 4px;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280}
 /* Collapsible workbench sections */
 .wb-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 4px;cursor:pointer;user-select:none;border-radius:0}
 .wb-sec-hd:hover .wb-sec-label{color:#6b7280}
-.wb-sec-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;transition:color .1s}
+.wb-sec-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;transition:color .1s}
 .wb-sec-chevron{color:#d1d5db;flex-shrink:0;transition:transform .2s,color .15s}
-.wb-sec-hd:hover .wb-sec-chevron{color:#9ca3af}
+.wb-sec-hd:hover .wb-sec-chevron{color:#6b7280}
 .wb-sec-chevron.collapsed{transform:rotate(-90deg)}
 .wb-sec-items.collapsed{display:none}
 .nav-item{display:block;width:100%;padding:6px 16px;font-size:13px;color:#374151;text-align:left;cursor:pointer;border-left:2px solid transparent;transition:background .1s,color .1s;user-select:none}
@@ -57,12 +58,12 @@ a{color:inherit;text-decoration:none}
 .fd-page{padding:52px 56px;max-width:1200px;margin:0 auto}
 
 /* Foundation heading styles */
-.pg-eyebrow{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:12px}
+.pg-eyebrow{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;margin-bottom:12px}
 .pg-eyebrow span{color:#d1d5db;margin:0 6px}
 .pg-title{font-size:30px;font-weight:700;color:#111827;letter-spacing:-.5px;line-height:1.2;margin-bottom:12px}
 .pg-desc{font-size:14px;color:#6b7280;line-height:1.6;max-width:820px;margin-bottom:40px}
 .pg-divider{border:none;border-top:1px solid #e5e7eb;margin:48px 0}
-.sec-eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#9ca3af;margin-bottom:6px}
+.sec-eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:#6b7280;margin-bottom:6px}
 .sec-title{font-size:20px;font-weight:700;color:#111827;letter-spacing:-.3px;margin-bottom:8px}
 .sec-desc{font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:24px;max-width:760px}
 
@@ -80,20 +81,20 @@ a{color:inherit;text-decoration:none}
 .arch-card-desc code{font-family:'JetBrains Mono',monospace;font-size:11px;background:#f3f4f6;padding:1px 4px;border-radius:3px}
 .arch-row{display:flex;align-items:baseline;padding:6px 16px;border-bottom:1px solid #f9fafb;font-size:12px;gap:12px}
 .arch-row:last-child{border-bottom:none}
-.arch-row-label{font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:10px;color:#9ca3af;flex-shrink:0;width:100px}
+.arch-row-label{font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:10px;color:#6b7280;flex-shrink:0;width:100px}
 .arch-row-vals{color:#6b7280;flex:1}
-.arch-row-count{color:#9ca3af;font-family:'JetBrains Mono',monospace}
+.arch-row-count{color:#6b7280;font-family:'JetBrains Mono',monospace}
 
 /* Primitive color section */
 .prim-section{margin-bottom:36px}
 .prim-hd{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
 .prim-label{font-size:14px;font-weight:600;color:#111827}
-.prim-var{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#9ca3af}
+.prim-var{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#6b7280}
 .prim-helptext{font-size:12.5px;color:#6b7280;line-height:1.55;margin-bottom:12px;max-width:560px}
 .prim-ramp{display:flex;gap:4px;align-items:flex-end}
 .prim-swatch{flex:1;border-radius:5px;border:1px solid rgba(0,0,0,.06)}
 .prim-ramp-labels{display:flex;gap:4px;margin-top:5px}
-.prim-ramp-label{flex:1;text-align:center;font-size:9.5px;color:#9ca3af;font-family:'JetBrains Mono',monospace}
+.prim-ramp-label{flex:1;text-align:center;font-size:9.5px;color:#6b7280;font-family:'JetBrains Mono',monospace}
 .prim-base-indicator{font-size:9.5px;color:#374151;font-weight:600}
 
 /* Token table */
@@ -103,7 +104,7 @@ a{color:inherit;text-decoration:none}
 .token-count{font-size:11px;padding:2px 8px;border-radius:20px;background:#f3f4f6;color:#6b7280;font-weight:500}
 .token-table{width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden}
 .token-table thead tr{background:#f9fafb}
-.token-table th{padding:9px 14px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;border-bottom:1px solid #e5e7eb}
+.token-table th{padding:9px 14px;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6b7280;border-bottom:1px solid #e5e7eb}
 .token-table th:first-child{width:52px}
 .token-table td{padding:9px 14px;border-bottom:1px solid #f3f4f6;vertical-align:middle}
 .token-table tr:last-child td{border-bottom:none}
@@ -116,7 +117,7 @@ a{color:inherit;text-decoration:none}
 
 /* Scale table */
 .scale-table{width:100%;border-collapse:collapse;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;margin-bottom:32px}
-.scale-table th{padding:9px 14px;background:#f9fafb;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;border-bottom:1px solid #e5e7eb}
+.scale-table th{padding:9px 14px;background:#f9fafb;text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6b7280;border-bottom:1px solid #e5e7eb}
 .scale-table td{padding:9px 14px;border-bottom:1px solid #f3f4f6;font-size:12.5px;vertical-align:middle}
 .scale-table tr:last-child td{border-bottom:none}
 .scale-table tr:hover td{background:#fafafa}
@@ -130,7 +131,7 @@ a{color:inherit;text-decoration:none}
 .type-row:last-child{border-bottom:none}
 .type-row-key{padding:12px 16px;background:#f9fafb;border-right:1px solid #f3f4f6}
 .type-row-key-name{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;color:#374151}
-.type-row-key-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9ca3af;margin-top:2px}
+.type-row-key-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b7280;margin-top:2px}
 .type-row-sample{padding:12px 20px;display:flex;align-items:center;background:#fff}
 
 /* ── Workbench view ──────────────────────────────────────────── */
@@ -138,7 +139,7 @@ a{color:inherit;text-decoration:none}
 #workbench-view.active{display:flex}
 .wb-nav{width:192px;flex-shrink:0;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;overflow:hidden}
 .wb-nav-hd{padding:12px 16px 8px;border-bottom:1px solid #e5e7eb;flex-shrink:0}
-.wb-nav-title{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af}
+.wb-nav-title{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280}
 .wb-nav-body{flex:1;overflow-y:auto;padding:6px 0}
 .wb-comp-btn{display:flex;align-items:center;gap:9px;width:100%;padding:8px 16px;font-size:13px;color:#374151;cursor:pointer;border-left:2px solid transparent;transition:background .1s}
 .wb-comp-btn:hover{background:#f9fafb;color:#111827}
@@ -146,7 +147,7 @@ a{color:inherit;text-decoration:none}
 .wb-comp-dot{width:10px;height:10px;border-radius:3px;border:1px solid rgba(0,0,0,.1);flex-shrink:0;transition:background .2s}
 
 /* Center token panel */
-.wb-center{width:320px;flex-shrink:0;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;overflow:hidden;position:relative;min-width:220px;max-width:520px}
+.wb-center{width:360px;flex-shrink:0;background:#fff;border-right:1px solid #e5e7eb;display:flex;flex-direction:column;overflow:hidden;position:relative;min-width:240px;max-width:560px}
 .wb-center-hd{padding:14px 16px 12px;flex-shrink:0}
 .wb-center-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#111827}
 .wb-center-sub{display:none}
@@ -161,7 +162,7 @@ a{color:inherit;text-decoration:none}
 .tg-section{margin-bottom:24px}
 .tg-section-hd{margin-bottom:10px}
 .tg-section-title{font-size:11.5px;font-weight:600;color:#111827}
-.tg-section-desc{font-size:11px;color:#9ca3af;margin-top:2px}
+.tg-section-desc{font-size:11px;color:#6b7280;margin-top:2px}
 .tg-row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f9fafb}
 .tg-row:last-child{border-bottom:none}
 .tg-swatch{width:28px;height:28px;border-radius:5px;border:1px solid rgba(0,0,0,.08);flex-shrink:0;transition:background .2s}
@@ -169,7 +170,7 @@ a{color:inherit;text-decoration:none}
 .tg-info-btn{width:18px;height:18px;border:none;background:none;padding:0;cursor:default;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#d1d5db;transition:color .12s;border-radius:50%}
 .tg-info-btn:hover{color:#6b7280}
 .tg-var{font-family:'JetBrains Mono',monospace;font-size:11px;color:#374151;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tg-global{font-family:'JetBrains Mono',monospace;font-size:10px;color:#9ca3af;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tg-global{font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7280;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tg-picker-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .tg-picker{width:26px;height:26px;border:none;border-radius:5px;cursor:pointer;padding:2px;background:none}
 .tg-hex{font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid #e5e7eb;border-radius:5px;padding:3px 7px;color:#374151;width:82px;outline:none}
@@ -177,7 +178,7 @@ a{color:inherit;text-decoration:none}
 
 /* Base color picker header */
 .base-picker-section{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;margin-bottom:20px}
-.base-picker-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:10px}
+.base-picker-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;margin-bottom:10px}
 .base-item{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .base-item:last-child{margin-bottom:0}
 .base-item-label{font-size:12px;font-weight:500;color:#374151;width:80px;flex-shrink:0}
@@ -193,35 +194,49 @@ a{color:inherit;text-decoration:none}
 .wb-right::-webkit-scrollbar{width:6px}
 .wb-right::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
 .wb-preview-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.wb-preview-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af}
+.wb-preview-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280}
 .theme-toggle{display:inline-flex;gap:2px;background:#e9eaeb;padding:3px;border-radius:7px}
 .theme-btn{padding:4px 14px;border-radius:5px;font-size:12px;font-weight:500;color:#6b7280;cursor:pointer;transition:background .1s,color .1s}
 .theme-btn.active{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .wb-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:18px 22px;margin-bottom:14px}
-.wb-card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#9ca3af;margin-bottom:14px}
+.wb-card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;margin-bottom:14px}
 .wb-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
 .wb-row:last-child{margin-bottom:0}
-.wb-row-lbl{font-size:11px;color:#9ca3af;width:72px;flex-shrink:0}
+.wb-row-lbl{font-size:11px;color:#6b7280;width:72px;flex-shrink:0}
 
 /* Footer */
 .wb-footer{border-top:1px solid #e5e7eb;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-shrink:0;background:#fff}
 .btn-primary-sm{padding:6px 16px;border-radius:6px;background:#111827;color:#fff;font-size:12.5px;font-weight:500;cursor:pointer;border:none;transition:background .1s}
 .btn-primary-sm:hover{background:#1f2937}
 .btn-outline-sm{padding:5px 14px;border-radius:6px;border:1px solid #e5e7eb;background:#fff;font-size:12.5px;font-weight:500;color:#374151;cursor:pointer;transition:border-color .1s}
-.btn-outline-sm:hover{border-color:#9ca3af}
+.btn-outline-sm:hover{border-color:#6b7280}
 
 /* ── Global Variable view (center pane) ─────────────────────── */
-.vv-editor-section{padding:14px 14px 12px;border-bottom:1px solid #f3f4f6}
+.vv-editor-section{padding:14px 14px 12px}
 .vv-editor-row{display:flex;align-items:center;gap:12px}
-.vv-big-swatch{width:44px;height:44px;border-radius:8px;border:1.5px solid rgba(0,0,0,.08);cursor:pointer;flex-shrink:0;transition:transform .1s,box-shadow .1s;position:relative}
-.vv-big-swatch:hover{transform:scale(1.06);box-shadow:0 3px 10px rgba(0,0,0,.18)}
-.vv-big-swatch::after{content:'edit';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.05em;opacity:0;transition:opacity .15s}
+/* Inset divider (groups base + derived as a unit) */
+.vv-inset-divider{border:none;border-top:1px solid #f3f4f6;margin:0 14px}
+/* Full-width divider (separates sections) */
+.vv-full-divider{border:none;border-top:1px solid #f3f4f6;margin:0}
+.vv-big-swatch{width:44px;height:44px;border-radius:8px;border:1.5px solid rgba(0,0,0,.08);cursor:pointer;flex-shrink:0;transition:box-shadow .1s;position:relative;overflow:hidden}
+.vv-big-swatch:hover{box-shadow:0 3px 10px rgba(0,0,0,.18)}
+/* Scrim overlay ensures "edit" text is always readable regardless of swatch color */
+.vv-big-swatch::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .15s;pointer-events:none;z-index:0}
+.vv-big-swatch:hover::before{background:rgba(0,0,0,.28)}
+.vv-big-swatch::after{content:'edit';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.05em;opacity:0;transition:opacity .15s;z-index:1}
 .vv-big-swatch:hover::after{opacity:1}
-.vv-css-token{font-family:'JetBrains Mono',monospace;font-size:10px;color:#9ca3af;margin-bottom:3px}
-.vv-hex-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#111827}
-.vv-edit-hint{font-size:10px;color:#d1d5db;margin-top:2px}
+.vv-css-token{font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b7280;margin-bottom:3px}
+.vv-hex-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:400;color:#374151}
+.vv-derived-section{padding:8px 14px 12px;border-bottom:1px solid #f3f4f6}
+.vv-derived-list{display:flex;flex-direction:column;gap:5px}
+.vv-derived-row{display:flex;align-items:center;gap:9px;padding:1px 0}
+.vv-derived-dot{width:20px;height:20px;border-radius:5px;border:1px solid rgba(0,0,0,.09);flex-shrink:0}
+.vv-derived-dot-text{width:20px;height:20px;border-radius:5px;border:1px solid rgba(0,0,0,.09);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'Inter',sans-serif}
+.vv-derived-token{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#374151}
 .vv-affects-section{padding:12px 14px}
-.vv-affects-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:10px}
+.btn-apply-saved{background:#16a34a!important}
+.btn-primary-sm:disabled{opacity:.35;cursor:not-allowed}
+.vv-affects-hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:10px}
 .vv-comp-group{margin-bottom:14px}
 .vv-comp-name{font-size:11px;font-weight:600;color:#374151;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .vv-comp-name::before{content:'';display:inline-block;width:3px;height:3px;border-radius:50%;background:#d1d5db}
@@ -229,7 +244,12 @@ a{color:inherit;text-decoration:none}
 .vv-comp-var:last-child{border-bottom:none}
 .vv-comp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.06)}
 .vv-comp-varname{font-family:'JetBrains Mono',monospace;font-size:10px;color:#374151;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.vv-comp-gk{font-size:10px;color:#9ca3af;flex-shrink:0}
+.vv-comp-gk{font-size:10px;color:#6b7280;flex-shrink:0}
+.tg-val-badge{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:3px;background:#f3f4f6;border:1px solid #e5e7eb;font-family:'JetBrains Mono',monospace;font-size:10px;color:#374151;font-weight:500;white-space:nowrap}
+.tg-var-select{font-family:'JetBrains Mono',monospace;font-size:10px;color:#374151;border:1px solid #e5e7eb;border-radius:4px;padding:2px 4px 2px 5px;background:#fff;outline:none;cursor:pointer;max-width:100%;margin-top:2px;transition:border-color .1s}
+.tg-var-select:hover{border-color:#d1d5db}
+.tg-var-select:focus{border-color:#6366f1}
+.tg-var-select.is-pending{border-color:#f59e0b;background:#fffbeb;color:#92400e}
 /* Sidebar global var nav items with color dot */
 .nav-item-var{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:6px 14px;font-size:12.5px;color:#374151;background:none;border:none;cursor:pointer;transition:background .1s;border-radius:0}
 .nav-item-var:hover{background:#f9fafb}
@@ -249,14 +269,14 @@ a{color:inherit;text-decoration:none}
 .export-file-hd{padding:9px 14px;background:#f9fafb;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between}
 .export-file-name{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:#374151}
 .btn-copy{padding:3px 10px;border-radius:5px;border:1px solid #e5e7eb;background:#fff;font-size:11px;color:#6b7280;cursor:pointer}
-.btn-copy:hover{border-color:#9ca3af;color:#374151}
+.btn-copy:hover{border-color:#6b7280;color:#374151}
 .export-code{padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.7;color:#374151;background:#f9fafb;overflow-x:auto;max-height:220px;overflow-y:auto;white-space:pre}
 
 /* Loading screen */
 #loading{position:fixed;inset:0;background:#fff;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
 .loading-ring{width:30px;height:30px;border:2.5px solid #f3f4f6;border-top-color:#111827;border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:13px;color:#9ca3af}
+.loading-text{font-size:13px;color:#6b7280}
 
 /* ── Unified Color Section ──────────────────────────────── */
 
@@ -266,14 +286,14 @@ a{color:inherit;text-decoration:none}
 .cg-card-title-wrap{display:flex;flex-direction:column;gap:3px}
 .cg-card-name{font-size:15px;font-weight:700;color:#111827}
 .cg-card-desc{font-size:12px;color:#6b7280;line-height:1.45}
-.cg-card-var{font-family:'JetBrains Mono',monospace;font-size:11px;color:#9ca3af;background:#f9fafb;padding:3px 10px;border-radius:20px;border:1px solid #e5e7eb;white-space:nowrap;flex-shrink:0}
+.cg-card-var{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b7280;background:#f9fafb;padding:3px 10px;border-radius:20px;border:1px solid #e5e7eb;white-space:nowrap;flex-shrink:0}
 /* Swatch grid — 7 swatches + 1 separator column */
 .cg-swatches{display:grid;grid-template-columns:1fr 20px 1fr 1fr 1fr 1fr 1fr 1fr;gap:6px;padding:0 20px 16px}
 /* Swatch card */
 .cg-sw{border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;min-width:0;display:flex;flex-direction:column;background:#fff}
 .cg-sw-color{height:44px;position:relative;cursor:default;transition:box-shadow .15s;flex-shrink:0}
-.cg-sw-info{border-top:1px solid #e5e7eb;padding:4px 6px;background:#fff;min-height:0}
-.cg-sw-lbl{font-size:8px;color:#6b7280;font-family:'JetBrains Mono',monospace;text-align:center;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cg-sw-info{border-top:1px solid #e5e7eb;padding:5px 6px;background:#fff;min-height:0}
+.cg-sw-lbl{font-size:11px;color:#6b7280;font-family:'JetBrains Mono',monospace;text-align:center;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cg-sw.is-base .cg-sw-color{cursor:pointer}
 .cg-sw.is-base .cg-sw-color::after{content:'edit';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.28);color:#fff;font-size:9px;font-family:'JetBrains Mono',monospace;letter-spacing:.03em;opacity:0;transition:opacity .15s}
 .cg-sw.is-base .cg-sw-color:hover::after{opacity:1}
@@ -284,7 +304,7 @@ a{color:inherit;text-decoration:none}
 .cg-text-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 20px}
 .cg-text-sw{border-radius:8px;padding:12px 14px;border:1px solid rgba(0,0,0,.06)}
 .cg-text-aa{font-size:22px;font-weight:700;line-height:1}
-.cg-text-tkn{font-family:'JetBrains Mono',monospace;font-size:9.5px;margin-top:5px;line-height:1.4;opacity:.8;word-break:break-all}
+.cg-text-tkn{font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:5px;line-height:1.4;opacity:.8;word-break:break-all}
 
 /* Main group card (no ramp) */
 .mg-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:16px}
@@ -298,13 +318,13 @@ a{color:inherit;text-decoration:none}
 .mg-token-swatch.can-edit:hover .mg-edit-badge{opacity:1}
 .mg-token-info{padding:7px 12px;border-top:1px solid #f3f4f6}
 .mg-token-label{font-size:12px;font-weight:600;color:#374151}
-.mg-token-var{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#6b7280;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mg-arrow{display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#9ca3af;font-size:16px}
+.mg-token-var{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b7280;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mg-arrow{display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#6b7280;font-size:16px}
 
 /* Nav sub-items (color group quick-links) */
 .nav-item-sub{padding:5px 16px 5px 24px;font-size:12px;color:#6b7280;border-left:2px solid transparent;display:flex;align-items:center;gap:7px}
 .nav-item-sub:hover{background:#f9fafb;color:#374151}
-.nav-item-sub.active{color:#374151;font-weight:500;background:#f3f4f6;border-left-color:#9ca3af}
+.nav-item-sub.active{color:#374151;font-weight:500;background:#f3f4f6;border-left-color:#6b7280}
 .nav-dot{width:7px;height:7px;border-radius:2px;border:1px solid rgba(0,0,0,.1);flex-shrink:0;display:inline-block}
 
 /* ── Custom color picker panel ─────────────────────────────── */
@@ -323,13 +343,13 @@ a{color:inherit;text-decoration:none}
 .cp-hue-cursor{position:absolute;width:16px;height:16px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px rgba(0,0,0,.35);pointer-events:none;top:0;left:0;transform:translate(-50%,-50%)}
 .cp-bottom{padding:10px 14px 14px;display:flex;align-items:center;gap:10px}
 .cp-preview-swatch{width:32px;height:32px;border-radius:6px;border:1px solid rgba(0,0,0,.1);flex-shrink:0}
-.cp-oklch-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#9ca3af;margin-bottom:2px}
+.cp-oklch-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6b7280;margin-bottom:2px}
 .cp-oklch-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:#374151;font-weight:500;line-height:1.5;word-break:break-all}
 
 /* Swatch hover tooltip */
 #sw-tooltip{position:fixed;z-index:8998;background:#1f2937;border-radius:8px;padding:10px 13px;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:240px;display:none}
 #sw-tt-hex{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#f9fafb;margin-bottom:0}
-#sw-tt-desc{font-size:11px;color:#9ca3af;line-height:1.45;margin-top:6px;display:none}
+#sw-tt-desc{font-size:11px;color:#6b7280;line-height:1.45;margin-top:6px;display:none}
 /* Picker reset button */
 .cp-reset-btn{font-size:11px;color:#6b7280;background:none;border:1px solid #e5e7eb;border-radius:5px;padding:3px 10px;cursor:pointer;font-family:inherit;transition:background .1s,color .1s;margin-top:2px}
 .cp-reset-btn:hover{background:#f3f4f6;color:#374151}
@@ -346,7 +366,7 @@ a{color:inherit;text-decoration:none}
 
 <div id="loading">
   <div class="loading-ring"></div>
-  <div class="loading-text">Loading Kendo theme…</div>
+  <div class="loading-text">Loading NetBrain Design System…</div>
 </div>
 
 <div id="app" style="display:none">
@@ -468,17 +488,18 @@ a{color:inherit;text-decoration:none}
       <!-- Token panel (center) -->
       <div class="wb-center" id="wb-center-panel">
         <div class="wb-center-hd">
-          <div class="wb-center-title" id="wb-center-title">Button Variables</div>
+          <div class="theme-toggle">
+            <button class="theme-btn active" id="btn-light" onclick="setThemeMode('light')">Light</button>
+            <button class="theme-btn" id="btn-dark" onclick="setThemeMode('dark')">Dark</button>
+          </div>
           <div style="margin-top:10px">
-            <div class="theme-toggle">
-              <button class="theme-btn active" id="btn-light" onclick="setThemeMode('light')">Light</button>
-              <button class="theme-btn" id="btn-dark" onclick="setThemeMode('dark')">Dark</button>
-            </div>
+            <div class="wb-center-title" id="wb-center-title">Button Variables</div>
           </div>
         </div>
         <div class="wb-center-body" id="wb-center-body"></div>
         <div class="wb-footer">
-          <button class="btn-outline-sm" onclick="resetColors()">Reset defaults</button>
+          <button class="btn-outline-sm" onclick="resetColors()">Reset</button>
+          <button class="btn-primary-sm" id="btn-apply" onclick="applyAndSave()">Apply</button>
         </div>
         <div class="wb-resize-handle" id="wb-resize-handle"></div>
       </div>
@@ -538,7 +559,7 @@ a{color:inherit;text-decoration:none}
     <div class="modal-hd">
       <span class="modal-title">Export Theme Files</span>
       <div style="display:flex;gap:8px;align-items:center">
-        <button class="btn-primary-sm" onclick="downloadFiles()" style="font-size:11.5px;padding:5px 14px">↓ Download both</button>
+        <button class="btn-primary-sm" onclick="downloadFiles()" style="font-size:11.5px;padding:5px 14px">↓ Download .zip</button>
         <div class="modal-close" onclick="closeExport()">×</div>
       </div>
     </div>
@@ -757,65 +778,183 @@ const SEMANTIC_GROUPS = [
 ];
 
 // Component variable definitions (matches original workbench BUTTON_VARS)
+// Lookup table for known non-color CSS token values
+const CSS_VAR_VALUES = {
+  '--kendo-spacing-0':        '0',
+  '--kendo-spacing-0\\.5':    '2px',
+  '--kendo-spacing-1':        '4px',
+  '--kendo-spacing-1\\.5':    '6px',
+  '--kendo-spacing-2':        '8px',
+  '--kendo-spacing-2\\.5':    '10px',
+  '--kendo-spacing-3':        '12px',
+  '--kendo-spacing-4':        '16px',
+  '--kendo-spacing-5':        '20px',
+  '--kendo-spacing-6':        '24px',
+  '--kendo-spacing-8':        '32px',
+  '--kendo-border-radius-sm': '2px',
+  '--kendo-border-radius-md': '4px',
+  '--kendo-border-radius-lg': '6px',
+  '--kendo-border-radius-xl': '8px',
+  '--kendo-font-size':              '14px',
+  '--kendo-font-size-sm':           '12px',
+  '--kendo-font-size-lg':           '16px',
+  '--kendo-font-size-xl':           '20px',
+  '--kendo-font-weight-light':      '300',
+  '--kendo-font-weight-normal':     '400',
+  '--kendo-font-weight-medium':     '500',
+  '--kendo-font-weight-semibold':   '600',
+  '--kendo-font-weight-bold':       '700',
+  '--kendo-line-height':            '1.5',
+  '--kendo-line-height-sm':         '1.25',
+  '--kendo-line-height-lg':         '1.75',
+};
+
+// Maps component var names to live preview CSS rules (scoped to Kendo selectors)
+const COMP_VAR_CSS_MAP = {
+  'button-padding-y':     v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{padding-top:${v}!important;padding-bottom:${v}!important}`,
+  'button-padding-x':     v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{padding-left:${v}!important;padding-right:${v}!important}`,
+  'button-gap':           v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{gap:${v}!important}`,
+  'button-border-radius': v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{border-radius:${v}!important}`,
+  'button-font-size':     v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{font-size:${v}!important}`,
+  'button-font-weight':   v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{font-weight:${v}!important}`,
+  'button-line-height':   v => `.k-button,.k-button-solid,.k-button-outline,.k-button-flat,.k-button-link{line-height:${v}!important}`,
+  'input-padding-y':      v => `.k-input-inner{padding-top:${v}!important;padding-bottom:${v}!important}`,
+  'input-padding-x':      v => `.k-input-inner{padding-left:${v}!important;padding-right:${v}!important}`,
+  'input-border-radius':  v => `.k-input{border-radius:${v}!important}`,
+};
+
+// Returns valid option pairs [cssVar, value] for a given catId + varName
+function _compVarOptions(catId, varName) {
+  const all = Object.entries(CSS_VAR_VALUES);
+  if (catId === 'spacing') return all.filter(([k]) => k.startsWith('--kendo-spacing-'));
+  if (catId === 'radii')   return all.filter(([k]) => k.startsWith('--kendo-border-radius-'));
+  if (catId === 'type') {
+    if (varName.includes('font-size'))   return all.filter(([k]) => k.startsWith('--kendo-font-size'));
+    if (varName.includes('font-weight')) return all.filter(([k]) => k.startsWith('--kendo-font-weight-'));
+    if (varName.includes('line-height')) return all.filter(([k]) => k.startsWith('--kendo-line-height'));
+  }
+  return [];
+}
+
+// Called when a spacing/radii/type dropdown changes
+function compVarChange(compKey, varName, newCssVar, defaultCssVar) {
+  if (!S.compVarOverrides[compKey]) S.compVarOverrides[compKey] = {};
+  // If user picked back to default, treat as a reset
+  if (newCssVar === defaultCssVar) {
+    compVarReset(compKey, varName);
+    return;
+  }
+  S.compVarOverrides[compKey][varName] = newCssVar;
+  _applyCompVarPreview();
+  buildCenterPanel();
+  _updateApplyBtn();
+}
+
+// Reset a single component var override back to its default
+function compVarReset(compKey, varName) {
+  if (S.compVarOverrides[compKey]) {
+    delete S.compVarOverrides[compKey][varName];
+    if (!Object.keys(S.compVarOverrides[compKey]).length) delete S.compVarOverrides[compKey];
+  }
+  _applyCompVarPreview();
+  buildCenterPanel();
+  _updateApplyBtn();
+}
+
+// Injects live preview CSS for all pending compVarOverrides
+function _applyCompVarPreview() {
+  let css = '';
+  Object.values(S.compVarOverrides).forEach(overrides => {
+    Object.entries(overrides).forEach(([varName, cssVar]) => {
+      const val = CSS_VAR_VALUES[cssVar];
+      if (val && COMP_VAR_CSS_MAP[varName]) css += COMP_VAR_CSS_MAP[varName](val) + '\n';
+    });
+  });
+  let el = document.getElementById('comp-var-preview-style');
+  if (!el) { el = document.createElement('style'); el.id = 'comp-var-preview-style'; document.head.appendChild(el); }
+  el.textContent = css;
+}
+
 const COMPONENTS = {
   button: {
     label: 'Button',
-    desc: 'Solid, outline, flat and ghost button variants',
+    desc: 'Four themeColor presets — primary, secondary, tertiary, danger — plus the neutral base variant',
     preview: renderButtonPreview,
     groups: [
       {
-        group: 'Default State',
-        desc: 'Resting appearance of the base button variant ($kendo-button-default-theme-color: "base").',
+        group: 'Base (Neutral)',
+        desc: 'themeColor="base" — neutral gray button, default variant.',
         vars: [
-          { name:'button-bg',     globalKey:'base',    desc:'Background of the base button at rest. Maps to the base semantic color token.' },
-          { name:'button-text',   globalKey:'on-base', desc:'Label and icon color on the base button. Ensures readability against the base background.' },
-          { name:'button-border', globalKey:'border',  desc:'Border color of the base button. Uses the standard border token.' },
+          { name:'button-bg',          globalKey:'base',        desc:'Resting background.' },
+          { name:'button-text',        globalKey:'on-base',     desc:'Label and icon color.' },
+          { name:'button-border',      globalKey:'border',      desc:'Border color.' },
+          { name:'button-hover-bg',    globalKey:'base-hover',  desc:'Hover background.' },
+          { name:'button-active-bg',   globalKey:'base-active', desc:'Pressed background.' },
+          { name:'button-selected-bg', globalKey:'primary',     desc:'Selected / toggled-on background.' },
+          { name:'button-selected-text',   globalKey:'on-primary', desc:'Label color when selected.' },
         ]
       },
       {
-        group: 'Hover State',
-        desc: 'Applied when the pointer is over the button.',
+        group: 'Primary',
+        desc: 'themeColor="primary" — main call-to-action button.',
         vars: [
-          { name:'button-hover-bg',     globalKey:'base-hover', desc:'Background on hover. Slightly darker than the resting base color to indicate interactability.' },
-          { name:'button-hover-text',   globalKey:'on-base',    desc:'Text color on hover. Stays consistent with the default state for visual stability.' },
-          { name:'button-hover-border', globalKey:'border',     desc:'Border color on hover. Unchanged from the resting border.' },
+          { name:'button-primary-bg',        globalKey:'primary',        desc:'Resting background.' },
+          { name:'button-primary-text',      globalKey:'on-primary',     desc:'Label and icon color.' },
+          { name:'button-primary-border',    globalKey:'primary',        desc:'Border color.' },
+          { name:'button-primary-hover-bg',  globalKey:'primary-hover',  desc:'Hover background.' },
+          { name:'button-primary-active-bg', globalKey:'primary-active', desc:'Pressed background.' },
         ]
       },
       {
-        group: 'Active / Pressed State',
-        desc: 'Applied while the button is held down.',
+        group: 'Secondary',
+        desc: 'themeColor="secondary" — supporting action button.',
         vars: [
-          { name:'button-active-bg',     globalKey:'base-active', desc:'Background while pressed. Darker than hover to communicate interaction depth.' },
-          { name:'button-active-text',   globalKey:'on-base',     desc:'Text color when pressed. Visually stable across all interaction states.' },
-          { name:'button-active-border', globalKey:'border',      desc:'Border when pressed. Consistent with hover for a clean state transition.' },
+          { name:'button-secondary-bg',        globalKey:'secondary',        desc:'Resting background.' },
+          { name:'button-secondary-text',      globalKey:'on-secondary',     desc:'Label and icon color.' },
+          { name:'button-secondary-border',    globalKey:'secondary',        desc:'Border color.' },
+          { name:'button-secondary-hover-bg',  globalKey:'secondary-hover',  desc:'Hover background.' },
+          { name:'button-secondary-active-bg', globalKey:'secondary-active', desc:'Pressed background.' },
         ]
       },
       {
-        group: 'Selected / Toggled State',
-        desc: 'Applied to ButtonGroup or toggle buttons in the "on" state.',
+        group: 'Tertiary',
+        desc: 'themeColor="tertiary" — ghost / flat accent button.',
         vars: [
-          { name:'button-selected-bg',     globalKey:'primary',    desc:'Background when the button is selected or toggled on. Uses primary to communicate active selection.' },
-          { name:'button-selected-text',   globalKey:'on-primary', desc:'Text on a selected button. Must be readable against the primary background.' },
-          { name:'button-selected-border', globalKey:'primary',    desc:'Border color for the selected state — matches the selected background.' },
+          { name:'button-tertiary-bg',        globalKey:'tertiary',        desc:'Resting background.' },
+          { name:'button-tertiary-text',      globalKey:'on-tertiary',     desc:'Label and icon color.' },
+          { name:'button-tertiary-border',    globalKey:'tertiary',        desc:'Border color.' },
+          { name:'button-tertiary-hover-bg',  globalKey:'tertiary-hover',  desc:'Hover background.' },
+          { name:'button-tertiary-active-bg', globalKey:'tertiary-active', desc:'Pressed background.' },
+        ]
+      },
+      {
+        group: 'Danger',
+        desc: 'themeColor="error" — destructive / high-risk action button.',
+        vars: [
+          { name:'button-error-bg',        globalKey:'error',        desc:'Resting background.' },
+          { name:'button-error-text',      globalKey:'on-error',     desc:'Label and icon color.' },
+          { name:'button-error-border',    globalKey:'error',        desc:'Border color.' },
+          { name:'button-error-hover-bg',  globalKey:'error-hover',  desc:'Hover background.' },
+          { name:'button-error-active-bg', globalKey:'error-active', desc:'Pressed background.' },
         ]
       },
       {
         group: 'Spacing & Shape',
-        desc: 'Padding, gap, and corner radius.',
+        desc: 'Padding, gap, and corner radius — shared across all variants.',
         vars: [
-          { name:'button-padding-y',     cssVar:'--kendo-spacing-1',        catId:'spacing', desc:'Vertical (top/bottom) inner padding. Uses spacing step 1 (0.25 rem = 4px).' },
-          { name:'button-padding-x',     cssVar:'--kendo-spacing-2',        catId:'spacing', desc:'Horizontal (left/right) inner padding. Uses spacing step 2 (0.5 rem = 8px).' },
-          { name:'button-gap',           cssVar:'--kendo-spacing-1',        catId:'spacing', desc:'Gap between an inline icon and the label text inside the button.' },
-          { name:'button-border-radius', cssVar:'--kendo-border-radius-md', catId:'radii',   desc:'Corner roundness. All button variants (solid, outline, flat) share this radius.' },
+          { name:'button-padding-y',     cssVar:'--kendo-spacing-1',        catId:'spacing', desc:'Vertical (top/bottom) inner padding.' },
+          { name:'button-padding-x',     cssVar:'--kendo-spacing-2',        catId:'spacing', desc:'Horizontal (left/right) inner padding.' },
+          { name:'button-gap',           cssVar:'--kendo-spacing-1',        catId:'spacing', desc:'Gap between an inline icon and the label text.' },
+          { name:'button-border-radius', cssVar:'--kendo-border-radius-md', catId:'radii',   desc:'Corner roundness — all variants share this radius.' },
         ]
       },
       {
         group: 'Typography',
         desc: 'Font settings applied to all button labels.',
         vars: [
-          { name:'button-font-size',    cssVar:'--kendo-font-size',          catId:'type', desc:'Label font size. Shared across xs/sm/md sizes; lg uses kendo-font-size-lg.' },
-          { name:'button-font-weight',  cssVar:'--kendo-font-weight-normal', catId:'type', desc:'Label font weight. Normal weight to keep button labels visually balanced.' },
-          { name:'button-line-height',  cssVar:'--kendo-line-height',        catId:'type', desc:'Line height for the label. Used in the button height calculation formula.' },
+          { name:'button-font-size',   cssVar:'--kendo-font-size',          catId:'type', desc:'Label font size.' },
+          { name:'button-font-weight', cssVar:'--kendo-font-weight-normal', catId:'type', desc:'Label font weight.' },
+          { name:'button-line-height', cssVar:'--kendo-line-height',        catId:'type', desc:'Line height for the label.' },
         ]
       },
     ]
@@ -916,6 +1055,9 @@ const S = {
   wbNavCollapsed: { components: false, variables: false },
   themeMode: 'light',
   colors: {},
+  appliedSnapshot: null,        // JSON snapshot of last-applied colors
+  compVarOverrides: {},         // pending overrides { [compKey]: { [varName]: cssVar } }
+  appliedCompVarOverrides: {},  // committed overrides (affect export)
 };
 
 // Init colors from Meridian defaults
@@ -923,6 +1065,35 @@ KENDO_BASE_COLORS.forEach(c => { S.colors[c.key] = c.defaultHex; });
 // Main group extra state (not in KENDO_BASE_COLORS ramp)
 S.subtle = '#64748b';
 S.borderBase = '#94a3b8';
+
+// Extra editable main-group variables (border + subtle) shown in workbench Variables nav
+const MAIN_EXTRA_VARS = [
+  { key:'borderBase', label:'Border', defaultHex:'#94a3b8', cssVarBase:'--kendo-color-border',
+    desc:'UI border colors', affectsKey:'border',
+    derived:[{ cssVar:'--kendo-color-border-alt', label:'border-alt' }] },
+  { key:'subtle', label:'Subtle', defaultHex:'#64748b', cssVarBase:'--kendo-color-subtle',
+    desc:'Subdued secondary fill', affectsKey:'subtle', derived:[] },
+];
+
+// Per-key derived states override for Main group base colors
+// parentCssVar: for on-X tokens, used as chip background so A text reads against its real context
+const DERIVED_STATES_BY_KEY = {
+  'app-surface': [{ cssVar:'--kendo-color-on-app-surface', label:'on-app-surface', parentCssVar:'--kendo-color-app-surface' }],
+  'surface':     [{ cssVar:'--kendo-color-surface-alt',    label:'surface-alt' }],
+};
+
+function _getDerivedStates(key) {
+  if (DERIVED_STATES_BY_KEY[key]) return DERIVED_STATES_BY_KEY[key];
+  return [
+    { cssVar:`--kendo-color-on-${key}`,             label:`on-${key}`,       parentCssVar:`--kendo-color-${key}` },
+    { cssVar:`--kendo-color-${key}-hover`,           label:`hover` },
+    { cssVar:`--kendo-color-${key}-active`,          label:`active` },
+    { cssVar:`--kendo-color-${key}-subtle`,          label:`subtle` },
+    { cssVar:`--kendo-color-${key}-subtle-hover`,    label:`subtle-hover` },
+    { cssVar:`--kendo-color-${key}-subtle-active`,   label:`subtle-active` },
+    { cssVar:`--kendo-color-${key}-emphasis`,        label:`emphasis` },
+  ];
+}
 
 // ══════════════════════════════════════════════════════════════
 // APPLY COLORS
@@ -985,6 +1156,27 @@ function applyColors() {
     const hexDisp = document.getElementById('vv-hex-display');
     if (hexDisp) hexDisp.textContent = (S.colors[S.globalVarKey] || '').toUpperCase();
   }
+  _updateApplyBtn();
+}
+
+// ── Dirty tracking for Apply button ──────────────────────────
+function _colorSnapshot() {
+  const keys = [...Object.keys(S.colors)].sort();
+  const obj = {};
+  keys.forEach(k => { obj[k] = S.colors[k]; });
+  obj.__subtle = S.subtle;
+  obj.__borderBase = S.borderBase;
+  return JSON.stringify(obj);
+}
+function _isDirty() {
+  const colorsDirty = S.appliedSnapshot !== null && _colorSnapshot() !== S.appliedSnapshot;
+  const compVarsDirty = JSON.stringify(S.compVarOverrides) !== JSON.stringify(S.appliedCompVarOverrides);
+  return colorsDirty || compVarsDirty;
+}
+function _updateApplyBtn() {
+  const btn = document.getElementById('btn-apply');
+  if (!btn) return;
+  btn.disabled = !_isDirty();
 }
 
 function refreshWorkbenchSwatches() {
@@ -1072,17 +1264,26 @@ function buildNav() {
     const secVar = document.createElement('div');
     secVar.className = 'wb-sec-hd';
     secVar.style.marginTop = '4px';
-    secVar.innerHTML = `<span class="wb-sec-label">Global Variables</span>${_chevron(varCollapsed)}`;
+    secVar.innerHTML = `<span class="wb-sec-label">Variables</span>${_chevron(varCollapsed)}`;
     secVar.onclick = () => toggleWbSection('variables');
     nav.appendChild(secVar);
 
     const varItems = document.createElement('div');
     varItems.className = 'wb-sec-items' + (varCollapsed ? ' collapsed' : '');
-    KENDO_BASE_COLORS.forEach(({ key, label }) => {
+    const allVarItems = [];
+    for (const { key, label } of KENDO_BASE_COLORS) {
+      allVarItems.push({ key, label, dotVar: `--kendo-color-${key}` });
+      if (key === 'surface') {
+        for (const { key: mk, label: ml, cssVarBase } of MAIN_EXTRA_VARS) {
+          allVarItems.push({ key: mk, label: ml, dotVar: cssVarBase });
+        }
+      }
+    }
+    allVarItems.forEach(({ key, label, dotVar }) => {
       const btn = document.createElement('button');
       const isActive = S.wbView === 'variable' && S.globalVarKey === key;
       btn.className = 'nav-item-var' + (isActive ? ' active' : '');
-      btn.innerHTML = `<span class="nv-dot" style="background:var(--kendo-color-${key})"></span>${label}`;
+      btn.innerHTML = `<span class="nv-dot" style="background:var(${dotVar})"></span>${label}`;
       btn.onclick = () => selectGlobalVar(key);
       varItems.appendChild(btn);
     });
@@ -1175,7 +1376,7 @@ function _mgTokenRow(cssVar, label, varName, elId, canEdit, pickerKey, isMain) {
     <div class="mg-token-info">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px">
         <div class="mg-token-label">${label}</div>
-        <span id="${elId}" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9ca3af;flex-shrink:0"></span>
+        <span id="${elId}" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b7280;flex-shrink:0"></span>
       </div>
       <div class="mg-token-var">${_shortVar(varName)}</div>
     </div>
@@ -1192,7 +1393,7 @@ function _mgTokenSwatch_demo(label, varName, elId) {
     <div class="mg-token-info">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px">
         <div class="mg-token-label">${label}</div>
-        <span id="${elId}" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#9ca3af;flex-shrink:0"></span>
+        <span id="${elId}" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b7280;flex-shrink:0"></span>
       </div>
       <div class="mg-token-var">${_shortVar(varName)}</div>
     </div>
@@ -1258,10 +1459,10 @@ function buildColorPage() {
     const swatchesHTML = swatches.map(({ cssVar, lbl, isBase }, i) => {
       const sep = (i === 1) ? `<div class="cg-sw-vsep"></div>` : '';
       const card = `
-      <div class="cg-sw${isBase ? ' is-base' : ''}">
+      <div class="cg-sw${isBase ? ' is-base' : ''}"
+           data-token="${cssVar}"
+           onmouseenter="showSwatchTip(this,event)" onmousemove="moveTip(event)" onmouseleave="hideSwatchTip()">
         <div class="cg-sw-color" style="background:var(${cssVar})"
-             data-token="${cssVar}"
-             onmouseover="showSwatchTip(this,event)" onmousemove="moveTip(event)" onmouseout="hideSwatchTip()"
              ${isBase ? `onclick="openColorPicker('${key}',false,this)" data-picker-key="${key}"` : ''}></div>
         <div class="cg-sw-info"><div class="cg-sw-lbl">${lbl}</div></div>
       </div>`;
@@ -1327,7 +1528,7 @@ function buildTypographyPage() {
           <td><span class="scale-key">${key}</span></td>
           <td><span class="scale-var">${cssVar}</span></td>
           <td><span class="scale-val">${val}</span></td>
-          <td><span class="scale-val">${px}${note ? ` <span style="font-size:10px;color:#9ca3af">· ${note}</span>` : ''}</span></td>
+          <td><span class="scale-val">${px}${note ? ` <span style="font-size:10px;color:#6b7280">· ${note}</span>` : ''}</span></td>
           <td><span style="font-size:${val};font-family:Inter,sans-serif">Sample text</span></td>
         </tr>`).join('')}
       </tbody>
@@ -1358,7 +1559,7 @@ function buildRadiusPage() {
       <tbody>
         ${RADIUS_SCALE.map(({ key, val, px, note }) => `
         <tr>
-          <td><span class="scale-key">${key}${note ? ` <span style="font-size:10px;color:#9ca3af">· ${note}</span>` : ''}</span></td>
+          <td><span class="scale-key">${key}${note ? ` <span style="font-size:10px;color:#6b7280">· ${note}</span>` : ''}</span></td>
           <td><span class="scale-var">--kendo-border-radius-${key}</span></td>
           <td><span class="scale-val">${val}</span></td>
           <td><span class="scale-val">${px}</span></td>
@@ -1434,20 +1635,30 @@ function buildCenterPanel() {
           <div class="tg-swatch" style="background:var(--kendo-color-${globalKey})"></div>
           <div class="tg-info">
             <div class="tg-var">$kendo-${name}</div>
-            <div class="tg-global">→ --kendo-color-${globalKey}</div>
+            <div class="tg-global">--kendo-color-${globalKey}</div>
           </div>
           ${_infoBtn(vdesc)}
         </div>`;
       } else if (cssVar) {
-        html += `<div class="tg-row">
-          <div class="tg-swatch" style="background:#f3f4f6;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;">
-            <span style="font-size:8px;font-family:'JetBrains Mono',monospace;color:#9ca3af">${catId === 'spacing' ? 'sp' : catId === 'radii' ? 'rx' : 'ty'}</span>
+        const activeCssVar = (S.compVarOverrides[S.component] && S.compVarOverrides[S.component][name]) || cssVar;
+        const knownVal = CSS_VAR_VALUES[activeCssVar] || '';
+        const isPending = activeCssVar !== cssVar;
+        const opts = _compVarOptions(catId, name);
+        const resetBtn = isPending
+          ? `<button title="Reset to default" onclick="compVarReset('${S.component}','${name}')" style="width:22px;height:22px;padding:0;font-size:12px;border:1px solid #fcd34d;border-radius:50%;background:#fffbeb;color:#92400e;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center" onmouseover="this.style.background='#fef3c7'" onmouseout="this.style.background='#fffbeb'">↺</button>`
+          : `<div style="width:22px;height:22px"></div>`;
+        const selectHtml = opts.length > 0
+          ? `<div style="display:flex;align-items:center;gap:6px;margin-top:5px"><select class="tg-var-select${isPending ? ' is-pending' : ''}" style="flex:1;min-width:0" onchange="compVarChange('${S.component}','${name}',this.value,'${cssVar}')">${opts.map(([k,v]) => `<option value="${k}"${k===activeCssVar?' selected':''}>${k} (${v})</option>`).join('')}</select>${resetBtn}</div>`
+          : `<div class="tg-global" style="margin-top:3px">${activeCssVar}${knownVal ? `<span class="tg-val-badge">${knownVal}</span>` : ''}</div>`;
+        html += `<div class="tg-row" style="align-items:flex-start;padding:9px 0">
+          <div class="tg-swatch" style="background:#f3f4f6;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;margin-top:1px">
+            <span style="font-size:8px;font-family:'JetBrains Mono',monospace;color:#6b7280">${catId === 'spacing' ? 'sp' : catId === 'radii' ? 'rx' : 'ty'}</span>
           </div>
           <div class="tg-info">
-            <div class="tg-var">$kendo-${name}</div>
-            <div class="tg-global">→ ${cssVar}</div>
+            <div class="tg-var">$kendo-${name}${isPending ? `<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#f59e0b;margin-left:5px;vertical-align:middle"></span>` : ''}</div>
+            ${selectHtml}
           </div>
-          ${_infoBtn(vdesc)}
+          <div style="align-self:flex-start;flex-shrink:0">${_infoBtn(vdesc)}</div>
         </div>`;
       }
     });
@@ -1506,49 +1717,74 @@ function _getAffectedCompVars(baseKey) {
 }
 
 function buildCenterPanelForVar(key) {
-  const bc = KENDO_BASE_COLORS.find(c => c.key === key);
+  // Resolve metadata — check MAIN_EXTRA_VARS first, then KENDO_BASE_COLORS
+  const mainExtra = MAIN_EXTRA_VARS.find(v => v.key === key);
+  const bc = mainExtra || KENDO_BASE_COLORS.find(c => c.key === key);
   if (!bc) return;
+
+  const isMain = !!mainExtra;
+  const cssVarBase = isMain ? bc.cssVarBase : `--kendo-color-${key}`;
+  const hex = isMain
+    ? (S[key] || bc.defaultHex || '#888888').toUpperCase()
+    : (S.colors[key] || bc.defaultHex || '#888888').toUpperCase();
+  const affectsKey = isMain ? bc.affectsKey : key;
+
   document.getElementById('wb-center-title').textContent = bc.label;
-  // vv sections carry their own padding — zero out body padding
   const body = document.getElementById('wb-center-body');
   body.style.padding = '0';
 
-  const affected = _getAffectedCompVars(key);
+  // Affected component variables
+  const affected = _getAffectedCompVars(affectsKey);
   const totalCount = Object.values(affected).reduce((n, c) => n + c.vars.length, 0);
-  const hex = (S.colors[key] || bc.defaultHex || '#888888').toUpperCase();
-
   let varRows = '';
   if (totalCount === 0) {
-    varRows = `<div style="font-size:11.5px;color:#9ca3af;padding:16px 0">No component variables reference this token.</div>`;
+    varRows = `<div style="font-size:11.5px;color:#6b7280;padding:16px 0">No component variables reference this token.</div>`;
   } else {
     Object.entries(affected).forEach(([ck, { label, vars }]) => {
-      varRows += `<div class="vv-comp-group">
-        <div class="vv-comp-name">${label}</div>`;
+      varRows += `<div class="vv-comp-group"><div class="vv-comp-name">${label}</div>`;
       vars.forEach(v => {
         varRows += `<div class="vv-comp-var">
           <span class="vv-comp-dot" style="background:var(--kendo-color-${v.globalKey})"></span>
           <span class="vv-comp-varname" title="$kendo-${v.varName}">$kendo-${v.varName}</span>
-          <span class="vv-comp-gk">→ ${v.globalKey}</span>
+          <span class="vv-comp-gk">${v.globalKey}</span>
         </div>`;
       });
       varRows += `</div>`;
     });
   }
 
+  // Derived states — per-key lookup handles Main group specials
+  const derivedStates = isMain ? bc.derived : _getDerivedStates(key);
+  const derivedHTML = derivedStates.length === 0
+    ? `<div style="font-size:11px;color:#6b7280">No derived states</div>`
+    : derivedStates.map(({ cssVar, label, parentCssVar }) => {
+        const isTextToken = label.startsWith('on-');
+        // For on-X tokens: chip bg = parent color, A = the token value itself
+        // This is always readable because on-X is defined to contrast with X
+        const dotHTML = isTextToken
+          ? `<div class="vv-derived-dot-text" style="background:var(${parentCssVar || cssVar});color:var(${cssVar})">A</div>`
+          : `<div class="vv-derived-dot" style="background:var(${cssVar})"></div>`;
+        return `<div class="vv-derived-row">${dotHTML}<span class="vv-derived-token">${cssVar}</span></div>`;
+      }).join('');
+
   document.getElementById('wb-center-body').innerHTML = `
     <div class="vv-editor-section">
       <div class="vv-editor-row">
         <div class="vv-big-swatch" id="vv-swatch-${key}"
-             style="background:var(--kendo-color-${key})"
-             onclick="openColorPicker('${key}', false, this)"
+             style="background:var(${cssVarBase})"
+             onclick="openColorPicker('${key}', ${isMain}, this)"
              title="Click to edit color"></div>
         <div>
-          <div class="vv-css-token">--kendo-color-${key}</div>
+          <div class="vv-css-token">${cssVarBase}</div>
           <div class="vv-hex-val" id="vv-hex-display">${hex}</div>
-          <div class="vv-edit-hint">Click swatch to edit</div>
         </div>
       </div>
     </div>
+    ${derivedStates.length > 0 ? `
+    <hr class="vv-inset-divider">
+    <div class="vv-derived-section">
+      <div class="vv-derived-list">${derivedHTML}</div>
+    </div>` : '<hr class="vv-full-divider">'}
     <div class="vv-affects-section">
       <div class="vv-affects-hd">${totalCount > 0 ? `Affects ${totalCount} component variable${totalCount>1?'s':''}` : 'No components affected'}</div>
       ${varRows}
@@ -1562,7 +1798,7 @@ function buildPreviewForVar(baseKey) {
 
   const affectedKeys = Object.keys(affected);
   if (affectedKeys.length === 0) {
-    area.innerHTML = `<div style="color:#9ca3af;font-size:12.5px;padding:24px 0">No components use this variable.</div>`;
+    area.innerHTML = `<div style="color:#6b7280;font-size:12.5px;padding:24px 0">No components use this variable.</div>`;
     return;
   }
 
@@ -1812,13 +2048,16 @@ function openColorPicker(stateKey,isMain,anchorEl){
   panel.style.display='block';panel.classList.add('open');CP.open=true;
   _drawPickerCanvas();_drawHueCanvas();_updatePickerPreview();
 
-  // Position near anchor
+  // Position to the right of anchor, vertically aligned
   const r=anchorEl.getBoundingClientRect();
-  const pw=268,ph=296;
-  let left=r.left,top=r.bottom+8;
-  if(left+pw>window.innerWidth-12)left=window.innerWidth-pw-12;
-  if(top+ph>window.innerHeight-12)top=r.top-ph-8;
-  if(top<12)top=12;
+  const pw=268,ph=320;
+  let left=r.right+10, top=r.top;
+  // If overflows right edge, open to the left instead
+  if(left+pw>window.innerWidth-12) left=r.left-pw-10;
+  // Clamp vertically
+  if(top+ph>window.innerHeight-12) top=window.innerHeight-ph-12;
+  if(top<12) top=12;
+  if(left<12) left=12;
   panel.style.left=left+'px';panel.style.top=top+'px';
   requestAnimationFrame(_updatePickerCursors);
 }
@@ -2082,14 +2321,64 @@ function onHexInput(key, val) {
   }
 }
 
+const NB_DS_STORAGE_KEY = 'NB_DS_APPLIED_COLORS';
+
+function applyAndSave() {
+  const payload = { ...S.colors, _subtle: S.subtle, _borderBase: S.borderBase };
+  localStorage.setItem(NB_DS_STORAGE_KEY, JSON.stringify(payload));
+  // Commit pending component var overrides
+  S.appliedCompVarOverrides = JSON.parse(JSON.stringify(S.compVarOverrides));
+  if (S.appliedSnapshot === null) S.appliedSnapshot = _colorSnapshot();
+  S.appliedSnapshot = _colorSnapshot(); // update clean baseline
+  applyColors(); // will call _updateApplyBtn → disabled again
+  if (S.wbView === 'component') buildCenterPanel(); // refresh pending indicators
+  const btn = document.getElementById('btn-apply');
+  if (btn) {
+    btn.textContent = 'Saved ✓';
+    btn.classList.add('btn-apply-saved');
+    setTimeout(() => { btn.textContent = 'Apply'; btn.classList.remove('btn-apply-saved'); }, 1500);
+  }
+}
+
 function resetColors() {
-  KENDO_BASE_COLORS.forEach(c => { S.colors[c.key] = c.defaultHex; });
+  const saved = localStorage.getItem(NB_DS_STORAGE_KEY);
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed._subtle)     { S.subtle = parsed._subtle; }
+      if (parsed._borderBase) { S.borderBase = parsed._borderBase; }
+      const colorsCopy = { ...parsed }; delete colorsCopy._subtle; delete colorsCopy._borderBase;
+      Object.assign(S.colors, colorsCopy);
+    } catch(e) {}
+  } else {
+    KENDO_BASE_COLORS.forEach(c => { S.colors[c.key] = c.defaultHex; });
+    S.subtle = '#64748b';
+    S.borderBase = '#94a3b8';
+  }
+  // Also reset all component var overrides
+  S.compVarOverrides = {};
+  S.appliedCompVarOverrides = {};
+  _applyCompVarPreview();
   if (S.wbView === 'variable') {
     buildCenterPanelForVar(S.globalVarKey);
   } else {
     buildCenterPanel();
   }
   applyColors();
+}
+
+function _loadSavedColors() {
+  const saved = localStorage.getItem(NB_DS_STORAGE_KEY);
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed._subtle)     { S.subtle = parsed._subtle; delete parsed._subtle; }
+      if (parsed._borderBase) { S.borderBase = parsed._borderBase; delete parsed._borderBase; }
+      Object.assign(S.colors, parsed);
+    } catch(e) {}
+  }
+  // Snapshot the current state as the clean baseline
+  S.appliedSnapshot = _colorSnapshot();
 }
 
 function setThemeMode(mode) {
@@ -2124,6 +2413,17 @@ function generateScss() {
   out += `\$kendo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n`;
   out += `\$kendo-font-family-monospace: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;\n`;
   out += `\$kendo-font-size: 0.875rem; // 14px\n`;
+  if (Object.keys(S.appliedCompVarOverrides).length > 0) {
+    out += `\n// ── Component token overrides ───────────────────────────\n`;
+    Object.entries(S.appliedCompVarOverrides).forEach(([compKey, overrides]) => {
+      if (!Object.keys(overrides).length) return;
+      out += `// ${COMPONENTS[compKey]?.label || compKey}\n`;
+      Object.entries(overrides).forEach(([varName, cssVar]) => {
+        out += `\$kendo-${varName}: var(${cssVar}); // ${CSS_VAR_VALUES[cssVar] || ''}\n`;
+      });
+      out += '\n';
+    });
+  }
   return out;
 }
 
@@ -2142,6 +2442,17 @@ function generateCss() {
   out += `  --kendo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n`;
   out += `  --kendo-font-family-monospace: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;\n`;
   out += `  --kendo-font-size: 0.875rem;\n`;
+  if (Object.keys(S.appliedCompVarOverrides).length > 0) {
+    out += `\n  /* ── Component token overrides ──────────────────────── */\n`;
+    Object.entries(S.appliedCompVarOverrides).forEach(([compKey, overrides]) => {
+      if (!Object.keys(overrides).length) return;
+      out += `  /* ${COMPONENTS[compKey]?.label || compKey} */\n`;
+      Object.entries(overrides).forEach(([varName, cssVar]) => {
+        out += `  --kendo-${varName}: var(${cssVar}); /* ${CSS_VAR_VALUES[cssVar] || ''} */\n`;
+      });
+      out += '\n';
+    });
+  }
   out += `}\n`;
   return out;
 }
@@ -2177,13 +2488,53 @@ function copyB64(btn, b64) {
 }
 
 function downloadFiles() {
-  [
-    { name:'_nb-theme-variables.scss', content:generateScss() },
-    { name:'nb-theme-variables.css',   content:generateCss() },
-  ].forEach(({ name, content }) => {
-    const a = document.createElement('a');
-    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
-    a.download = name; a.click();
+  const themeName = 'netbrain-theme';
+  const scss = generateScss();
+  const css  = generateCss();
+  const pkg  = JSON.stringify({
+    name: themeName,
+    version: '0.1.0',
+    description: 'NetBrain Design System — custom Kendo UI theme',
+    license: 'UNLICENSED',
+  }, null, 2);
+  const readme =
+`# NetBrain Theme
+
+Custom Kendo UI theme generated by NetBrain DS Workbench.
+
+## Files
+
+- \`scss/_variables.scss\` — Sass variable overrides. Import before Kendo's SCSS compilation.
+- \`dist/${themeName}.css\`  — Compiled CSS with base token overrides. Drop in alongside \`kendo-theme-default\`.
+
+## Usage (CSS)
+
+\`\`\`html
+<link rel="stylesheet" href="dist/${themeName}.css" />
+\`\`\`
+
+## Usage (SCSS)
+
+\`\`\`scss
+@use 'scss/variables' as *;
+@use '@progress/kendo-theme-default/scss/index.scss';
+\`\`\`
+`;
+
+  const zip = new JSZip();
+  const folder = zip.folder(themeName);
+  folder.file('package.json', pkg);
+  folder.file('README.md', readme);
+  folder.folder('scss').file('_variables.scss', scss);
+  folder.folder('dist').file(`${themeName}.css`, css);
+
+  zip.generateAsync({ type: 'blob' }).then(blob => {
+    const url = URL.createObjectURL(blob);
+    const a   = document.createElement('a');
+    a.href     = url;
+    a.download = `${themeName}.zip`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
   });
 }
 
@@ -2199,6 +2550,7 @@ let initDone = false;
 function init() {
   if (initDone) return; initDone = true;
 
+  _loadSavedColors();
   applyColors();
   setupPicker();
 
